@@ -15,7 +15,6 @@
  */
 package com.google.idea.blaze.android.run.runner;
 
-import static org.jetbrains.android.actions.RunAndroidAvdManagerAction.getName;
 
 import com.android.tools.idea.run.AndroidSessionInfo;
 import com.android.tools.idea.run.DeviceFutures;
@@ -155,8 +154,9 @@ public interface BlazeAndroidDeviceSelector {
           noText = "Cancel " + currentExecutor;
         }
 
-        String title = "Launching " + getName();
-        String yesText = "Restart " + getName();
+        String targetName = info.getExecutionTarget().getDisplayName();
+        String title = "Launching " + targetName;
+        String yesText = "Restart " + targetName;
         if (Messages.NO
             == Messages.showYesNoDialog(
                 project,

@@ -27,6 +27,7 @@ import com.google.common.collect.ImmutableCollection;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Iterables;
+import com.google.idea.blaze.android.rendering.BlazeRenderErrorContributorTestCompat.MockJavaPsiFacade;
 import com.google.idea.blaze.android.sync.model.AndroidResourceModule;
 import com.google.idea.blaze.android.sync.model.AndroidResourceModuleRegistry;
 import com.google.idea.blaze.base.BlazeTestCase;
@@ -74,9 +75,7 @@ import com.intellij.psi.PsiClass;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiFile;
 import com.intellij.psi.PsiManager;
-import com.intellij.psi.impl.JavaPsiFacadeImpl;
 import com.intellij.psi.impl.JvmPsiConversionHelperImpl;
-import com.intellij.psi.search.GlobalSearchScope;
 import com.intellij.psi.search.ProjectScopeBuilder;
 import com.intellij.psi.search.ProjectScopeBuilderImpl;
 import java.io.File;
@@ -734,21 +733,6 @@ public class BlazeRenderErrorContributorTest extends BlazeTestCase {
     @Override
     public PsiElement resolveLabel(Label label) {
       return null;
-    }
-  }
-
-  private static class MockJavaPsiFacade extends JavaPsiFacadeImpl {
-    private ImmutableMap<String, PsiClass> classes;
-
-    public MockJavaPsiFacade(
-        Project project, PsiManager psiManager, ImmutableMap<String, PsiClass> classes) {
-      super(project, psiManager, null, null);
-      this.classes = classes;
-    }
-
-    @Override
-    public PsiClass findClass(String qualifiedName, GlobalSearchScope scope) {
-      return classes.get(qualifiedName);
     }
   }
 
