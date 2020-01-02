@@ -99,7 +99,10 @@ public class BlazeInstrumentationTestApkBuildStep implements BlazeApkBuildStep {
         BlazeCommand.builder(
             Blaze.getBuildSystemProvider(project).getBinaryPath(project), BlazeCommandName.BUILD);
     WorkspaceRoot workspaceRoot = WorkspaceRoot.fromProject(project);
-    File executionRoot = projectData.getBlazeInfo().getExecutionRoot();
+    File executionRoot = ExecRootService.getInstance(project).getExecutionRoot(buildFlags, context);
+    if (executionRoot == null) {
+      return;
+    }
 
     try (BuildResultHelper buildResultHelper = BuildResultHelperProvider.create(project)) {
       command

@@ -28,6 +28,7 @@
     <applicationService serviceInterface="com.google.idea.blaze.base.plugin.BlazePluginId"
                         serviceImplementation="com.google.idea.blaze.android.plugin.AswbPlugin"/>
     <projectService serviceImplementation="com.google.idea.blaze.android.manifest.ParsedManifestService"/>
+    <projectService serviceImplementation="com.google.idea.blaze.android.run.runner.ExecRootService"/>
     <projectService serviceImplementation="com.google.idea.blaze.android.sync.model.AndroidResourceModuleRegistry"/>
     <projectService serviceImplementation="com.google.idea.blaze.android.projectsystem.ExternalLibraryInterner"/>
     <projectService serviceImplementation="com.google.idea.blaze.android.libraries.UnpackedAars"/>

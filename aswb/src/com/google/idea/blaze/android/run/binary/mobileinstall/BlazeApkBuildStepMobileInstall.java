@@ -29,6 +29,7 @@ import com.google.idea.blaze.android.run.deployinfo.BlazeApkDeployInfoProtoHelpe
 import com.google.idea.blaze.android.run.deployinfo.BlazeApkDeployInfoProtoHelper.GetDeployInfoException;
 import com.google.idea.blaze.android.run.runner.BlazeAndroidDeviceSelector;
 import com.google.idea.blaze.android.run.runner.BlazeApkBuildStep;
+import com.google.idea.blaze.android.run.runner.ExecRootService;
 import com.google.idea.blaze.base.async.process.ExternalTask;
 import com.google.idea.blaze.base.async.process.LineProcessingOutputStream;
 import com.google.idea.blaze.base.async.process.PrintOutputLineProcessor;
@@ -141,7 +142,10 @@ public class BlazeApkBuildStepMobileInstall implements BlazeApkBuildStep {
     }
 
     WorkspaceRoot workspaceRoot = WorkspaceRoot.fromProject(project);
-    File executionRoot = projectData.getBlazeInfo().getExecutionRoot();
+    File executionRoot = ExecRootService.getInstance(project).getExecutionRoot(blazeFlags, context);
+    if (executionRoot == null) {
+      return;
+    }
     final String deployInfoSuffix = getDeployInfoSuffix(Blaze.getBuildSystem(project));
 
     try (BuildResultHelper buildResultHelper = BuildResultHelperProvider.create(project)) {
